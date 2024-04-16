@@ -1,7 +1,16 @@
 Problem Link: https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/
 
 Intuition:
-  Breadth First Search, Queue, Collections.reverse()
+  Breadth First Search, Queue, Collections.reverse()  OR 
+
+  Use Deque(Doubly ended Queue)
+	For Normal order
+		- Remove from front
+		-Add from back
+	
+	For Reverse order
+		-Remove from the back/end
+		-Add from Front
 
 Solution: 
 /**
