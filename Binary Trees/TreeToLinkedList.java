@@ -1,4 +1,4 @@
-Problem Link:
+Problem Link: Convert Binary Tree to Doubly Linked List - FAANG Interview Question
 
 Intuition:
   DFS, In-order traversal
@@ -50,6 +50,7 @@ class TreeToLinkedList {
             head = temp;
             tail = head;
         }
+        inOrder(node.right);
     
     }
 
