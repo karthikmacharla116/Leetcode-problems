@@ -4,6 +4,9 @@ Intuition:
   Can be solved using Cycle detection in a Directed graph. DFS, Check for all un-visited nodes.
   Time O(V) + O(V + edges) and space O(N+N)
 
+  Also, using BFS - Topological sort.
+    -By reversing the edge directions and calculating the indegrees,...
+
 Solutions:
 
 //use dfs
@@ -94,5 +97,58 @@ class Solution {
         pathVisited[node] = false;
         checked[node] = 1;
         return false;
+    }
+}
+
+
+//Using BFS - Topological sort
+class Solution {
+    public List<Integer> eventualSafeNodes(int[][] graph) {
+        int n = graph.length;
+
+        //reverse the edge directions
+        Map<Integer, List<Integer>> adj = new HashMap();
+
+        //By using Topological sorting
+        int[] indegree = new int[n];
+
+        for(int i=0;i<n;i++) {
+            for(int node: graph[i]) {
+                adj.computeIfAbsent(node, (k)-> new ArrayList()).add(i);
+                indegree[i]++;
+            }
+        }
+
+        Queue<Integer> queue = new LinkedList();
+        for(int node=0;node<n;node++) {
+            if(indegree[node] == 0)
+                queue.add(node);
+        }
+        List<Integer> list = new ArrayList();
+        bfs(queue, adj, indegree, list);
+        Collections.sort(list);
+        return list;
+    }
+
+
+    void bfs(Queue<Integer> queue, Map<Integer, List<Integer>> adj, int[] indegree, List<Integer> list) {
+        if(queue.isEmpty())
+            return;
+        
+        int level = queue.size();
+
+        while(level > 0) {
+            int node = queue.poll();
+            list.add(node);
+            if(adj.get(node) != null) {
+                for(int n: adj.get(node)) {
+                    indegree[n]--;
+                    if(indegree[n] == 0)
+                        queue.add(n);
+                }
+            }
+            level--;
+        }
+        bfs(queue, adj, indegree, list);
     }
 }
