@@ -2,6 +2,8 @@ Problem Link: https://leetcode.com/problems/minimum-increment-to-make-array-uniq
 
 Intuition:
   Count sort, size of freq array is tricky*
+  Time complexity: O(n+k), k = max element
+  Space: O(n+k)
 
 Solution:
 class MinIncrementForUnique {
